@@ -1,0 +1,23 @@
+1.
+A = LOAD '/home/acadgild/students.csv' using PigStorage(',') AS (Name:chararray,ColUndertaken:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+B = FILTER A by (int)grade < 5;
+C = GROUP B ALL;
+D = FOREACH C GENERATE group,COUNT(B) as total;
+dump D;
+
+2.
+A = LOAD '/home/acadgild/students.csv' using PigStorage(',') AS (Name:chararray,ColUndertaken:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+B = FILTER A by state=='alaska'; 
+C = FOREACH B GENERATE Name;
+dump C;
+
+3.A = LOAD '/home/acadgild/students.csv' using PigStorage(',') AS (Name:chararray,ColUndertaken:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+B = FILTER A by (state=='alabama') and ColUndertaken == 'goverenment'; 
+C = GROUP B ALL;
+D = FOREACH C GENERATE group,COUNT(B);
+dump D;
+
+4.
+A = LOAD '/home/acadgild/students.csv' using PigStorage(',') AS (Name:chararray,ColUndertaken:chararray,dob:chararray,stream:chararray,grade:float,state:chararray,city:chararray);
+B = FILTER A BY ((state == 'oregon') AND (stream == 'BE'));
+C = FOREACH B GENERATE *;
